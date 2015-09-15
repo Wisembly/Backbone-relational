@@ -813,7 +813,7 @@
 		findRelated: function( options ) {
 			var related = null;
 
-			options = _.defaults( { parse: this.options.parse }, options );
+			options = _.defaults( options, { parse: this.options.parse });
 
 			if ( this.keyContents instanceof this.relatedModel ) {
 				related = this.keyContents;
@@ -1003,7 +1003,7 @@
 		findRelated: function( options ) {
 			var related = null;
 
-			options = _.defaults( { parse: this.options.parse }, options );
+			options = _.defaults( options, { parse: this.options.parse });
 
 			// Replace 'this.related' by 'this.keyContents' if it is a Backbone.Collection
 			if ( this.keyContents instanceof Backbone.Collection ) {
