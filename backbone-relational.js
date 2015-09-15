@@ -448,13 +448,14 @@
 		/**
 		 * Add a 'model' to its appropriate collection. Retain the original contents of 'model.collection'.
 		 * @param {Backbone.RelationalModel} model
+		 * @param {Object} options
 		 */
-		register: function( model ) {
+		register: function( model, options ) {
 			var coll = this.getCollection( model );
 
 			if ( coll ) {
 				var modelColl = model.collection;
-				coll.add( model );
+				coll.add( model, options );
 				model.collection = modelColl;
 			}
 		},
@@ -480,13 +481,14 @@
 		/**
 		 * Explicitly update a model's id in its store collection
 		 * @param {Backbone.RelationalModel} model
+		 * @param {Backbone.RelationalModel} model
 		 */
-		update: function( model ) {
+		update: function( model, options ) {
 			var coll = this.getCollection( model );
 
 			// Register a model if it isn't yet (which happens if it was created without an id).
 			if ( !coll.contains( model ) ) {
-				this.register( model );
+				this.register( model, options );
 			}
 
 			// This triggers updating the lookup indices kept in a collection
@@ -1552,14 +1554,14 @@
 
 					// Only register models that have an id. A model will be registered when/if it gets an id later on.
 					if ( newId || newId === 0 ) {
-						Backbone.Relational.store.register( this );
+						Backbone.Relational.store.register( this, options );
 					}
 
 					this.initializeRelations( options );
 				}
 				// The store should know about an `id` update asap
 				else if ( newId && newId !== id ) {
-					Backbone.Relational.store.update( this );
+					Backbone.Relational.store.update( this, options );
 				}
 
 				if ( attributes ) {
