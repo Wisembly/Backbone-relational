@@ -1013,6 +1013,10 @@
 			// Otherwise, 'this.keyContents' should be an array of related object ids.
 			// Re-use the current 'this.related' if it is a Backbone.Collection; otherwise, create a new collection.
 			else {
+				if ( options.reset ) {
+					this.related = null;
+				}
+
 				var toAdd = [];
 
 				_.each( this.keyContents, function( attributes ) {
