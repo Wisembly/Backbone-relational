@@ -775,16 +775,16 @@
 		destroy: function() {
 			this.stopListening();
 
+			_.each( this.getReverseRelations(), function( relation ) {
+				relation.removeRelated( this.instance );
+			}, this );
+
 			if ( this instanceof Backbone.HasOne ) {
 				this.setRelated( null );
 			}
 			else if ( this instanceof Backbone.HasMany ) {
 				this.setRelated( this._prepareCollection() );
 			}
-
-			_.each( this.getReverseRelations(), function( relation ) {
-				relation.removeRelated( this.instance );
-			}, this );
 		}
 	});
 
